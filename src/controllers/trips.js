@@ -3,7 +3,6 @@ import {
   getTripById as findTripById,
   getAllTrips as findAllTrips,
 } from "../models/trips.js";
-import { getDb } from "../db/connect.js";
 
 /* ------------------------- API controllers ------------------------- */
 
@@ -63,13 +62,7 @@ export async function tripDetailsPage(req, res, next) {
       return next(err);
     }
 
-    // TODO (Feature Set 2): schedules will be hydrated on the client
-    // from the schedules API instead of being fetched here.
-    details.schedules = await getDb()
-      .collection("schedules")
-      .find({ tripId })
-      .toArray();
-
+    // Schedules are hydrated on the client from /api/trips/{id}/schedules.
     return res.render("trips/details", {
       title: "Trip Details",
       details,
