@@ -1,4 +1,4 @@
-<%- include('../partials/header') %>
+﻿<%- include('../partials/header') %>
 <article class="confirmation-page">
     <div class="confirmation-header">
         <div class="success-icon">
@@ -12,7 +12,7 @@
         
         <div class="booking-reference">
             <span class="reference-label">Booking Reference</span>
-            <span class="reference-number"><%= confirmation.id %></span>
+            <span class="reference-number"><%= booking.id %></span>
         </div>
     </div>
 
@@ -22,34 +22,34 @@
             
             <div class="details-grid">
                 <div class="detail-card">
-                    <div class="detail-icon">🎫</div>
+                    <div class="detail-icon">ðŸŽ«</div>
                     <div class="detail-content">
                         <span class="detail-label">Ticket Class</span>
-                        <span class="detail-value"><%= confirmation.ticketClass %></span>
+                        <span class="detail-value"><%= booking.ticketClass %></span>
                     </div>
                 </div>
 
                 <div class="detail-card">
-                    <div class="detail-icon">📅</div>
+                    <div class="detail-icon">ðŸ“…</div>
                     <div class="detail-content">
                         <span class="detail-label">Travel Day</span>
-                        <span class="detail-value"><%= confirmation.selectedDay %></span>
+                        <span class="detail-value"><%= booking.selectedDay %></span>
                     </div>
                 </div>
 
                 <div class="detail-card">
-                    <div class="detail-icon">👥</div>
+                    <div class="detail-icon">ðŸ‘¥</div>
                     <div class="detail-content">
                         <span class="detail-label">Number of Passengers</span>
-                        <span class="detail-value"><%= confirmation.passengers.length %></span>
+                        <span class="detail-value"><%= booking.passengers.length %></span>
                     </div>
                 </div>
 
                 <div class="detail-card">
-                    <div class="detail-icon">🕐</div>
+                    <div class="detail-icon">ðŸ•</div>
                     <div class="detail-content">
                         <span class="detail-label">Booked On</span>
-                        <span class="detail-value"><%= new Date(confirmation.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
+                        <span class="detail-value"><%= new Date(booking.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></span>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <h2 class="section-title">Passenger Information</h2>
             
             <div class="passengers-list">
-                <% confirmation.passengers.forEach(function(passenger, index) { %>
+                <% booking.passengers.forEach(function(passenger, index) { %>
                 <div class="passenger-info-card">
                     <div class="passenger-header">
                         <h3 class="passenger-title">Passenger <%= index + 1 %></h3>
@@ -91,7 +91,7 @@
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3 class="step-title">Check Your Email</h3>
-                        <p class="step-description">A confirmation email with your booking details and QR code has been sent to <%= confirmation.passengers[0].email %></p>
+                        <p class="step-description">A confirmation email with your booking details and QR code has been sent to <%= booking.passengers[0].email %></p>
                     </div>
                 </div>
 
@@ -132,7 +132,7 @@
 
         <div class="confirmation-actions">
             <button onclick="window.print()" class="btn btn-secondary">
-                <span class="btn-icon">🖨️</span>
+                <span class="btn-icon">ðŸ–¨ï¸</span>
                 Print Confirmation
             </button>
             <a href="/trips" class="btn btn-primary">Browse More Trips</a>
