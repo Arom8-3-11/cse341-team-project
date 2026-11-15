@@ -9,16 +9,15 @@ describe('GET /api/trains', () => {
 
     expect(response.status).toBe(200);
     expect(response.headers['content-type']).toContain('application/json');
-    expect(response.body).toHaveProperty('trains');
-    expect(response.body.trains).toBeInstanceOf(Array);
+    expect(response.body).toBeInstanceOf(Array);
   });
 
   test('returns the trains from the starter data', async () => {
     const response = await request(app).get('/api/trains');
 
     expect(response.status).toBe(200);
-    expect(response.body.trains).toHaveLength(4);
-    expect(response.body.trains).toEqual(
+    expect(response.body).toHaveLength(4);
+    expect(response.body).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           id: 'series-e353',
@@ -39,7 +38,7 @@ describe('GET /api/trains', () => {
     const response = await request(app).get('/api/trains');
 
     expect(response.status).toBe(200);
-    expect(response.body.trains).toEqual(
+    expect(response.body).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           id: 'test-express',
@@ -47,5 +46,24 @@ describe('GET /api/trains', () => {
         })
       ])
     );
+  });
+});
+
+describe('GET /api/trains/:id', () => {
+  test('returns one train by ID', async () => {
+    const response = await request(app).get('/api/trains/series-e353');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      id: 'series-e353',
+      name: 'Series E353 Limited Express'
+    });
+  });
+
+  test('returns 404 for an unknown train ID', async () => {
+    const response = await request(app).get('/api/trains/not-a-train');
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('error', 'Train not found');
   });
 });
