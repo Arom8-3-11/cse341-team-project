@@ -1,0 +1,209 @@
+//src/routes/api-routes.js
+// Routes that expose JSON API endpoints.
+import { Router } from 'express';
+import { getAllTrains, getTrainById } from '../controllers/trains.js';
+import { getAllTrips, getTripById } from '../controllers/trips.js';
+
+const router = Router();
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Train:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: series-e353
+ *         name:
+ *           type: string
+ *           example: Series E353 Limited Express
+ *         operator:
+ *           type: string
+ *           example: JR East
+ *         imageUrl:
+ *           type: string
+ *         imageAlt:
+ *           type: string
+ *         type:
+ *           type: string
+ *           example: Limited Express
+ *         maxSpeedKmh:
+ *           type: number
+ *           example: 130
+ *         capacity:
+ *           type: number
+ *           example: 482
+ *         powerSource:
+ *           type: string
+ *           example: Electric
+ *         bestFor:
+ *           type: string
+ *         description:
+ *           type: string
+ *     Trip:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: alpine-panorama
+ *         name:
+ *           type: string
+ *           example: Alpine Panorama Express
+ *         description:
+ *           type: string
+ *         region:
+ *           type: string
+ *           example: central
+ *         startStation:
+ *           type: string
+ *           example: nagoya
+ *         endStation:
+ *           type: string
+ *           example: toyama
+ *         duration:
+ *           type: string
+ *           example: 4.5 hours
+ *         distance:
+ *           type: number
+ *           example: 180
+ *         highlights:
+ *           type: array
+ *           items:
+ *             type: string
+ *         bestSeason:
+ *           type: string
+ *           example: autumn
+ *         operatingMonths:
+ *           type: array
+ *           items:
+ *             type: number
+ *         imageUrl:
+ *           type: string
+ *     Error:
+ *       type: object
+ *       properties:
+ *         error:
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * /api/trains:
+ *   get:
+ *     summary: Returns all trains.
+ *     tags: [Trains]
+ *     responses:
+ *       200:
+ *         description: A list of trains.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Train'
+ *       500:
+ *         description: Failed to fetch trains.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/trains', getAllTrains);
+
+/**
+ * @swagger
+ * /api/trains/{id}:
+ *   get:
+ *     summary: Returns one train by ID.
+ *     tags: [Trains]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The train ID.
+ *     responses:
+ *       200:
+ *         description: The requested train.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Train'
+ *       404:
+ *         description: Train not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Failed to fetch train.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/trains/:id', getTrainById);
+
+/**
+ * @swagger
+ * /api/trips:
+ *   get:
+ *     summary: Returns all trips.
+ *     tags: [Trips]
+ *     responses:
+ *       200:
+ *         description: A list of trips.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Trip'
+ *       500:
+ *         description: Failed to fetch trips.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/trips', getAllTrips);
+
+/**
+ * @swagger
+ * /api/trips/{id}:
+ *   get:
+ *     summary: Returns one trip by ID.
+ *     tags: [Trips]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The trip ID.
+ *     responses:
+ *       200:
+ *         description: The requested trip.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Trip'
+ *       404:
+ *         description: Trip not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Failed to fetch trip.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/trips/:id', getTripById);
+
+export default router;

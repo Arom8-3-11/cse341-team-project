@@ -39,3 +39,11 @@ export async function getAllTrains(req, res) {
     });
   }
 }
+
+/* ------------------------- EJS controllers ------------------------- */
+
+// The trains content is hydrated on the client from /api/trains,
+// so this controller only needs to render the page shell.
+export function trainsPage(req, res) {
+  return res.render("trains", { title: "Trains" });
+}
