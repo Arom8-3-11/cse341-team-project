@@ -4,6 +4,7 @@ import { Router } from 'express';
 import { getAllTrains, getTrainById } from '../controllers/trains.js';
 import { getAllTrips, getTripById } from '../controllers/trips.js';
 import { getSchedulesForTrip, getSchedulesForTripAndMonth } from '../controllers/schedules.js';
+import { getAllBookings } from '../controllers/bookings.js';
 
 const router = Router();
 
@@ -104,6 +105,46 @@ const router = Router();
  *           example: [monday, tuesday, wednesday]
  *         status:
  *           type: boolean
+ *     Passenger:
+ *       type: object
+ *       properties:
+ *         firstName:
+ *           type: string
+ *           example: Yuki
+ *         lastName:
+ *           type: string
+ *           example: Tanaka
+ *         email:
+ *           type: string
+ *           example: yuki.tanaka@example.com
+ *         phone:
+ *           type: string
+ *           example: +81 120-555-1234
+ *     Booking:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           example: JRA1B2C3D4
+ *         scheduleId:
+ *           type: number
+ *           example: 1
+ *         tripId:
+ *           type: string
+ *           example: alpine-panorama
+ *         ticketClass:
+ *           type: string
+ *           example: premium
+ *         selectedDay:
+ *           type: string
+ *           example: monday
+ *         passengers:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Passenger'
+ *         createdAt:
+ *           type: string
+ *           format: date-time
  *     Error:
  *       type: object
  *       properties:
@@ -286,5 +327,29 @@ router.get('/trips/:id/schedules', (req, res) => {
  *               $ref: '#/components/schemas/Error'
  */
 router.get('/trips/:id', getTripById);
+
+/**
+ * @swagger
+ * /api/bookings:
+ *   get:
+ *     summary: Returns all bookings.
+ *     tags: [Bookings]
+ *     responses:
+ *       200:
+ *         description: A list of bookings.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Booking'
+ *       500:
+ *         description: Failed to fetch bookings.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+router.get('/bookings', getAllBookings);
 
 export default router;

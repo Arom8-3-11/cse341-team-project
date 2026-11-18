@@ -1,0 +1,75 @@
+﻿.bookings-admin {
+    display: block;
+
+    h1 {
+        margin-bottom: var(--space-sm);
+    }
+
+    > p {
+        margin-bottom: var(--space-lg);
+        color: var(--clr-text-secondary);
+    }
+
+    .bookings-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .booking-card {
+        border: 1px solid #b7c4e8;
+        border-radius: var(--radius-lg);
+        background: var(--clr-surface);
+        box-shadow: var(--shadow-sm);
+        padding: var(--space-lg);
+
+        .booking-card-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+
+            h2 {
+                margin: 0;
+                font-size: var(--font-size-xl);
+            }
+
+            .booking-created {
+                color: var(--clr-text-secondary);
+                font-size: var(--font-size-sm);
+            }
+        }
+
+        .booking-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+
+            dt {
+                font-weight: bold;
+            }
+
+            dd {
+                margin: 0;
+                color: var(--clr-text-secondary);
+            }
+        }
+
+        .booking-passengers {
+            margin-bottom: var(--space-md);
+
+            h3 {
+                margin: 0 0 var(--space-xs) 0;
+            }
+
+            ul {
+                margin: 0;
+                padding-left: var(--space-lg);
+                color: var(--clr-text-secondary);
+            }
+        }
+    }
+}
