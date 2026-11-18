@@ -4,12 +4,8 @@ import { Router } from 'express';
 import { homePage, aboutPage, testErrorPage } from './index.js';
 import { trainsPage } from '../controllers/trains.js';
 import { tripsListPage, tripDetailsPage } from '../controllers/trips.js';
-import {
-    bookingPage,
-    processBookingRequest,
-    bookingConfirmationPage,
-    bookingsAdminPage
-} from '../controllers/bookings.js';
+import { bookingPage, processBookingRequest } from './book.js';
+import confirmationPage from './confirm.js';
 
 const router = Router();
 
@@ -30,10 +26,7 @@ router.get('/trips/booking/:scheduleId', bookingPage);
 router.post('/trips/book', processBookingRequest);
 
 // Booking confirmation page
-router.get('/trips/confirmation/:bookingId', bookingConfirmationPage);
-
-// Bookings admin page
-router.get('/bookings-admin', bookingsAdminPage);
+router.get('/trips/confirmation/:confirmationId', confirmationPage);
 
 // Trip details page
 router.get('/trips/:tripId', tripDetailsPage);

@@ -368,20 +368,3 @@ article.route-detail {
         }
     }
 }
-.schedules-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
-
-    h2 {
-        margin: 0;
-    }
-
-    select {
-        padding: var(--space-xs) var(--space-sm);
-        border-radius: var(--radius-sm);
-    }
-}
