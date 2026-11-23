@@ -1,11 +1,10 @@
-﻿@layer base, utilities, components, layout;
+@layer base, utilities, components, layout;
 
 @import 'base/reset.css' layer(base);
 @import 'base/variables.css' layer(base);
 @import 'base/base.css' layer(base);
 
 @import 'utilities/booking.css' layer(utilities);
-@import 'utilities/bookings-admin.css' layer(utilities);
 @import 'utilities/confirmation.css' layer(utilities);
 @import 'utilities/home.css' layer(utilities);
 @import 'utilities/trains.css' layer(utilities);

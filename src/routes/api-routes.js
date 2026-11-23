@@ -3,8 +3,6 @@
 import { Router } from 'express';
 import { getAllTrains, getTrainById } from '../controllers/trains.js';
 import { getAllTrips, getTripById } from '../controllers/trips.js';
-import { getSchedulesForTrip, getSchedulesForTripAndMonth } from '../controllers/schedules.js';
-import { getAllBookings } from '../controllers/bookings.js';
 
 const router = Router();
 
@@ -83,68 +81,6 @@ const router = Router();
  *             type: number
  *         imageUrl:
  *           type: string
- *     Schedule:
- *       type: object
- *       properties:
- *         id:
- *           type: number
- *           example: 1
- *         tripId:
- *           type: string
- *           example: alpine-panorama
- *         departureTime:
- *           type: string
- *           example: "08:30"
- *         arrivalTime:
- *           type: string
- *           example: "13:00"
- *         daysOfWeek:
- *           type: array
- *           items:
- *             type: string
- *           example: [monday, tuesday, wednesday]
- *         status:
- *           type: boolean
- *     Passenger:
- *       type: object
- *       properties:
- *         firstName:
- *           type: string
- *           example: Yuki
- *         lastName:
- *           type: string
- *           example: Tanaka
- *         email:
- *           type: string
- *           example: yuki.tanaka@example.com
- *         phone:
- *           type: string
- *           example: +81 120-555-1234
- *     Booking:
- *       type: object
- *       properties:
- *         id:
- *           type: string
- *           example: JRA1B2C3D4
- *         scheduleId:
- *           type: number
- *           example: 1
- *         tripId:
- *           type: string
- *           example: alpine-panorama
- *         ticketClass:
- *           type: string
- *           example: premium
- *         selectedDay:
- *           type: string
- *           example: monday
- *         passengers:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/Passenger'
- *         createdAt:
- *           type: string
- *           format: date-time
  *     Error:
  *       type: object
  *       properties:
@@ -237,64 +173,6 @@ router.get('/trips', getAllTrips);
 
 /**
  * @swagger
- * /api/trips/{id}/schedules:
- *   get:
- *     summary: Returns the schedules for a trip, optionally filtered by month.
- *     tags: [Schedules]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: The trip ID.
- *       - in: query
- *         name: month
- *         required: false
- *         schema:
- *           type: integer
- *           minimum: 1
- *           maximum: 12
- *         description: >
- *           Optional month number (1-12). Returns the trip's schedules when
- *           the trip operates during that month, otherwise an empty array.
- *     responses:
- *       200:
- *         description: The schedules for the trip.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Schedule'
- *       400:
- *         description: Invalid month number.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       404:
- *         description: Trip not found.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Failed to fetch schedules.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get('/trips/:id/schedules', (req, res) => {
-    if (req.query.month !== undefined) {
-        return getSchedulesForTripAndMonth(req, res);
-    }
-    return getSchedulesForTrip(req, res);
-});
-
-/**
- * @swagger
  * /api/trips/{id}:
  *   get:
  *     summary: Returns one trip by ID.
@@ -327,29 +205,5 @@ router.get('/trips/:id/schedules', (req, res) => {
  *               $ref: '#/components/schemas/Error'
  */
 router.get('/trips/:id', getTripById);
-
-/**
- * @swagger
- * /api/bookings:
- *   get:
- *     summary: Returns all bookings.
- *     tags: [Bookings]
- *     responses:
- *       200:
- *         description: A list of bookings.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Booking'
- *       500:
- *         description: Failed to fetch bookings.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get('/bookings', getAllBookings);
 
 export default router;
